@@ -54,6 +54,7 @@ public class OverlayService extends Service {
     };
 
     private static boolean running = false;
+    private static CamTileService camTileService;
 
     public static void start(Context context) {
         SharedPreferences sharedPreferences =
@@ -100,6 +101,14 @@ public class OverlayService extends Service {
         return running;
     }
 
+    public static void registerListener(CamTileService service) {
+        camTileService = service;
+    }
+
+    public static void unregisterListener() {
+        camTileService = null;
+    }
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -110,6 +119,7 @@ public class OverlayService extends Service {
         Log.d("OverlayService", "onCreate");
         super.onCreate();
         running = true;
+        updateTile();
 
         mOverlayView = CamOverlay.show(this);
 
@@ -134,6 +144,7 @@ public class OverlayService extends Service {
         Log.d("OverlayService", "onDestroy");
         super.onDestroy();
         running = false;
+        updateTile();
         unregisterReceiver(mReceiver);
 
         CamOverlay.hide();
@@ -150,6 +161,11 @@ public class OverlayService extends Service {
             mOverlayView.setScaleX(sx);
             mOverlayView.setScaleY(sy);
         }
+    }
+
+    private void updateTile() {
+        if (camTileService != null)
+            camTileService.updateState();
     }
 }
 

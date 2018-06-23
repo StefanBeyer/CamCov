@@ -4,6 +4,7 @@ import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
 public class CamTileService extends TileService {
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -22,12 +23,15 @@ public class CamTileService extends TileService {
     @Override
     public void onStartListening() {
         super.onStartListening();
-        updateState(OverlayService.isRunning());
+
+        updateState();
+        OverlayService.registerListener(this);
     }
 
     @Override
     public void onStopListening() {
         super.onStopListening();
+        OverlayService.unregisterListener();
     }
 
     @Override
@@ -48,17 +52,12 @@ public class CamTileService extends TileService {
     }
 
     private void toggle() {
-        try {
-            updateState(!OverlayService.isRunning());
-            OverlayService.toggle(this);
-        } finally {
-            updateState(OverlayService.isRunning());
-        }
+        OverlayService.toggle(this);
     }
 
-    private void updateState(boolean isRunning) {
+    public void updateState() {
         Tile tile = getQsTile();
-        tile.setState(isRunning ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
+        tile.setState(OverlayService.isRunning() ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE);
         tile.updateTile();
     }
 }
