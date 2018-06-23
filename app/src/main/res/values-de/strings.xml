@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CamCov</string>
+
+    <string name="enabled">Einschalten</string>
+    <string name="enabled_summ">Overlay einschalten</string>
+    <string name="alpha">Durchsichtigkeit</string>
+    <string name="alpha_summary">Durchsichtigkeit des Overlays ändern</string>
+    <string name="invert_x">X-Achse</string>
+    <string name="invert_x_summary">X-Achse invertieren</string>
+    <string name="invert_y">Y-Achse</string>
+    <string name="invert_y_summary">Y-Achse invertieren</string>
+
+    <string name="cam_tile_label">CamCov</string>
+</resources>
