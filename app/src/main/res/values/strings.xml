@@ -9,4 +9,6 @@
     <string name="invert_x_summary">Invert X axis</string>
     <string name="invert_y">Invert Y</string>
     <string name="invert_y_summary">Invert Y axis</string>
+
+    <string name="cam_tile_label">CamCov</string>
 </resources>
